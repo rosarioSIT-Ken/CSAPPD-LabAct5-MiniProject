@@ -1,0 +1,69 @@
+<section class="carousel">
+
+  @if (heading()) {
+    <div class="rail-head">
+      <h2>{{ heading() }}</h2>
+      <span class="count">{{ slides().length }} items</span>
+    </div>
+  }
+
+  <div class="viewport">
+
+    <button
+      type="button"
+      class="arrow left"
+      [disabled]="atStart()"
+      (click)="scrollLeft()"
+      aria-label="Previous">
+      &#8592;
+    </button>
+
+    <div class="track" #track (scroll)="onScroll()">
+      @for (mon of slides(); track mon.id) {
+        <article class="panel">
+
+          <div class="art">
+            @if (isBroken(mon.id)) {
+              <div class="placeholder">
+                <span class="ph-name">{{ mon.name }}</span>
+                <span class="ph-note">Drop {{ mon.image }}</span>
+              </div>
+            } @else {
+              <img [src]="mon.image" [alt]="mon.name" (error)="onImageError(mon.id)" />
+            }
+          </div>
+
+          @if (mon.tag) {
+            <span class="tag">{{ mon.tag }}</span>
+          }
+
+          <div class="overlay">
+            <div class="meta">
+              <h3>{{ mon.name }}</h3>
+              <p class="type">{{ mon.type }} &middot; {{ mon.heldItem }}</p>
+              <p class="desc">{{ mon.description }}</p>
+            </div>
+
+            <div class="buy">
+              <span class="price">P {{ mon.price }}</span>
+              <button type="button" class="add" (click)="onAdd(mon)">Add to Cart</button>
+            </div>
+          </div>
+
+        </article>
+      } @empty {
+        <p class="none">Nothing to show here yet.</p>
+      }
+    </div>
+
+    <button
+      type="button"
+      class="arrow right"
+      [disabled]="atEnd()"
+      (click)="scrollRight()"
+      aria-label="Next">
+      &#8594;
+    </button>
+
+  </div>
+</section>

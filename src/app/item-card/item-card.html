@@ -1,0 +1,14 @@
+<article class="item">
+  <span class="badge">{{ item().emoji }}</span>
+
+  <div class="info">
+    <h4>{{ item().name }}</h4>
+    <p class="cat">{{ item().category }}</p>
+    <p class="desc">{{ item().description }}</p>
+  </div>
+
+  <div class="buy">
+    <span class="price">P {{ item().price }}</span>
+    <button type="button" (click)="onAdd()">Add to Cart</button>
+  </div>
+</article>

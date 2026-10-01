@@ -1,0 +1,7 @@
+<header class="region-head">
+  <p class="kicker">Region</p>
+  <h2>{{ regionName }}</h2>
+  <p class="sub">{{ slides().length }} selected entries</p>
+</header>
+
+<app-carousel [slides]="slides()" (added)="onAdded($event)" />

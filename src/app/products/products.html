@@ -1,0 +1,68 @@
+<section class="wrap">
+
+  <header class="head">
+    <div>
+      <p class="kicker">Catalogue</p>
+      <h2>All Products</h2>
+    </div>
+    <span class="count">{{ visible().length }} entries</span>
+  </header>
+
+  <div class="filters">
+    @for (f of filters; track f) {
+      <button type="button" [class.on]="filter() === f" (click)="setFilter(f)">{{ f }}</button>
+    }
+  </div>
+
+  <div class="table">
+    <div class="row head-row">
+      <span class="c-check"></span>
+      <span class="c-thumb"></span>
+      <span class="c-title">Title</span>
+      <span class="c-type">Type</span>
+      <span class="c-price">Price</span>
+      <span class="c-act"></span>
+    </div>
+
+    @for (p of visible(); track p.id) {
+      <div class="row" [class.picked]="isSelected(p.id)">
+        <span class="c-check">
+          <input type="checkbox" [checked]="isSelected(p.id)" (change)="toggle(p.id)" />
+        </span>
+
+        <span class="c-thumb">
+          @if (isBroken(p.id)) {
+            <span class="ph">{{ p.name.charAt(0) }}</span>
+          } @else {
+            <img [src]="p.image" [alt]="p.name" (error)="onImageError(p.id)" />
+          }
+        </span>
+
+        <span class="c-title">
+          {{ p.name }}
+          <small>{{ p.subtitle }}</small>
+        </span>
+
+        <span class="c-type">{{ p.kind }}</span>
+        <span class="c-price">P {{ p.price }}</span>
+
+        <span class="c-act">
+          <button type="button" (click)="addOne(p)">Add</button>
+        </span>
+      </div>
+    } @empty {
+      <p class="none">No products match this filter.</p>
+    }
+  </div>
+
+  @if (selectedCount() > 0) {
+    <div class="bulk">
+      <span>{{ selectedCount() }} selected &middot; P {{ selectedTotal() }}</span>
+      <div class="bulk-act">
+        <button type="button" class="link" (click)="clearSelection()">Clear</button>
+        <button type="button" class="solid" (click)="addSelected()">Add selected to cart</button>
+      </div>
+    </div>
+  }
+
+</section>

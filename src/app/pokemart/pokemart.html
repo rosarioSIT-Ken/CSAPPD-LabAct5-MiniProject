@@ -1,0 +1,46 @@
+<section class="wrap">
+
+  <header class="head">
+    <div>
+      <p class="kicker">Supplies</p>
+      <h2>PokeMart</h2>
+    </div>
+    <span class="count">{{ visibleItems().length }} items</span>
+  </header>
+
+  <div class="filters">
+    @for (cat of categories(); track cat) {
+      <button type="button" [class.on]="activeCategory() === cat" (click)="setCategory(cat)">
+        {{ cat }}
+      </button>
+    }
+  </div>
+
+  <div class="grid">
+    @for (item of visibleItems(); track item.id) {
+      <article class="tile">
+        <div class="art">
+          @if (isBroken(item.id)) {
+            <span class="ph">{{ item.name }}</span>
+          } @else {
+            <img [src]="item.image" [alt]="item.name" (error)="onImageError(item.id)" />
+          }
+        </div>
+
+        <div class="info">
+          <p class="cat">{{ item.category }}</p>
+          <h3>{{ item.name }}</h3>
+          <p class="desc">{{ item.description }}</p>
+        </div>
+
+        <div class="foot">
+          <span class="price">P {{ item.price }}</span>
+          <button type="button" (click)="onAdd(item)">Add to Cart</button>
+        </div>
+      </article>
+    } @empty {
+      <p class="none">No items in this category.</p>
+    }
+  </div>
+
+</section>

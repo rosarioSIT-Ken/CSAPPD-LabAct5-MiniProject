@@ -1,0 +1,45 @@
+.intro {
+  max-width: 620px;
+  margin: 0 auto;
+  padding: 86px 24px;
+  text-align: center;
+}
+
+.kicker {
+  margin: 0 0 14px;
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.intro h2 {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+}
+
+.lede {
+  margin: 18px 0 26px;
+  color: var(--muted);
+  line-height: 1.65;
+  font-size: 0.94rem;
+}
+
+.ghost {
+  display: inline-block;
+  padding: 12px 26px;
+  border: 1px solid var(--ink);
+  border-radius: 24px;
+  color: var(--ink);
+  text-decoration: none;
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.ghost:hover { background: var(--ink); color: var(--paper); }

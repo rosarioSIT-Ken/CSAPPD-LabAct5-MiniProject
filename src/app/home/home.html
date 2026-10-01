@@ -1,0 +1,15 @@
+<app-carousel [slides]="featured()" (added)="onAdded($event)" />
+
+<section class="intro">
+  <p class="kicker">The Collection</p>
+  <h2>{{ totalPokemon() }} Pokemon. Three regions. One registry.</h2>
+  <p class="lede">
+    Every entry is catalogued with its type, held item, and a short field note.
+    Browse by region below, or head to the PokeMart for supplies.
+  </p>
+  <a class="ghost" [routerLink]="['/products']">View all products</a>
+</section>
+
+<app-carousel heading="Kanto Region" [slides]="kanto()" (added)="onAdded($event)" />
+<app-carousel heading="Johto Region" [slides]="johto()" (added)="onAdded($event)" />
+<app-carousel heading="Hoenn Region" [slides]="hoenn()" (added)="onAdded($event)" />

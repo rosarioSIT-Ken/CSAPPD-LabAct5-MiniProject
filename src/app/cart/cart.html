@@ -1,0 +1,132 @@
+<section class="wrap">
+
+  <header class="head">
+    <div>
+      <p class="kicker">Checkout</p>
+      <h2>Your Bag</h2>
+    </div>
+    <span class="count">{{ totalQuantity() }} item(s)</span>
+  </header>
+
+  @if (receipt(); as order) {
+    <div class="receipt">
+      <p class="r-kicker">Order confirmed</p>
+      <h3>Reference {{ order.reference }}</h3>
+      <p class="r-when">{{ order.placedAt | date:'medium' }}</p>
+
+      <div class="r-lines">
+        @for (line of order.lines; track line.product.id) {
+          <div class="r-line">
+            <span>{{ line.product.name }} &times; {{ line.quantity }}</span>
+            <span>P {{ line.product.price * line.quantity }}</span>
+          </div>
+        }
+      </div>
+
+      <div class="r-line r-total">
+        <span>Total paid</span>
+        <span>P {{ order.total }}</span>
+      </div>
+
+      <button type="button" class="ghost" (click)="dismissReceipt()">Continue shopping</button>
+    </div>
+  }
+
+  @if (isEmpty()) {
+    @if (!receipt()) {
+      <div class="empty">
+        <p>Your bag is empty.</p>
+        <a class="ghost" [routerLink]="['/shop']">Browse the collection</a>
+      </div>
+    }
+  } @else {
+
+    <div class="layout">
+
+      <div class="lines">
+        @for (line of lines(); track line.product.id) {
+          <article class="line">
+            <div class="thumb">
+              @if (isBroken(line.product.id)) {
+                <span class="ph">{{ line.product.name.charAt(0) }}</span>
+              } @else {
+                <img [src]="line.product.image" [alt]="line.product.name"
+                     (error)="onImageError(line.product.id)" />
+              }
+            </div>
+
+            <div class="info">
+              <p class="kind">{{ line.product.kind }} &middot; {{ line.product.subtitle }}</p>
+              <h3>{{ line.product.name }}</h3>
+              <p class="unit">P {{ line.product.price }} each</p>
+            </div>
+
+            <div class="qty">
+              <button type="button" (click)="removeOne(line.product.id)">&minus;</button>
+              <span>{{ line.quantity }}</span>
+              <button type="button" (click)="addOne(line)">+</button>
+            </div>
+
+            <span class="sub">P {{ line.product.price * line.quantity }}</span>
+
+            <button type="button" class="drop" (click)="removeLine(line.product.id)">Remove</button>
+          </article>
+        }
+      </div>
+
+      <aside class="summary">
+        <div class="s-preview">
+          @if (lines().length > 0) {
+            <div class="s-thumb">
+              @if (isBroken(lines()[0].product.id)) {
+                <span class="ph">{{ lines()[0].product.name.charAt(0) }}</span>
+              } @else {
+                <img [src]="lines()[0].product.image" [alt]="lines()[0].product.name"
+                     (error)="onImageError(lines()[0].product.id)" />
+              }
+            </div>
+            <p class="s-title">
+              {{ lines()[0].product.name }} x {{ lines()[0].quantity }}
+              @if (lines().length > 1) {
+                <span class="more">+ {{ lines().length - 1 }} more</span>
+              }
+            </p>
+          }
+        </div>
+
+        <div class="s-row">
+          <span>Subtotal</span>
+          <span>P {{ subtotal() }}</span>
+        </div>
+
+        <div class="s-row">
+          <span>Shipping</span>
+          <select (change)="onRegionChange($event)">
+            @for (r of regions; track r) {
+              <option [value]="r" [selected]="r === shippingRegion()">{{ r }}</option>
+            }
+          </select>
+          <span class="ship-val">
+            @if (freeShipping()) { FREE } @else { P {{ shipping() }} }
+          </span>
+        </div>
+
+        @if (!freeShipping()) {
+          <p class="nudge">Add P {{ amountToFreeShipping() }} more for free shipping.</p>
+        }
+
+        <div class="s-row s-total">
+          <span>Total</span>
+          <span>P {{ total() }}</span>
+        </div>
+
+        <button type="button" class="pay" (click)="checkout()">Checkout</button>
+        <button type="button" class="alt" (click)="clearCart()">Clear bag</button>
+
+        <p class="ssl">SSL Secure Payment</p>
+      </aside>
+
+    </div>
+  }
+
+</section>
