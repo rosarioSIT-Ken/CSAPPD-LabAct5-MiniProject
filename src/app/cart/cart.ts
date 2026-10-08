@@ -14,7 +14,7 @@ import { CartLine } from '../models/product';
 export class Cart {
   private cartService = inject(CartService);
 
-  // Everything is read from the service signals
+
   lines = this.cartService.cart;
   subtotal = this.cartService.subtotal;
   shipping = this.cartService.shipping;

@@ -9,10 +9,10 @@ import { MartItem } from '../models/mart-item';
   styleUrl: './item-card.css'
 })
 export class ItemCard {
-  // Modern signal input
+  
   item = input.required<MartItem>();
 
-  // Modern signal output
+ 
   added = output<MartItem>();
 
   onAdd = (): void => {

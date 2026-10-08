@@ -7,17 +7,17 @@ export class CartService {
   private readonly FREE_SHIPPING_FLOOR = 5000;
   private readonly SHIPPING_FEE = 150;
 
-  // ---- Private signals: cart state and the last order ----
+  
   private lines = signal<CartLine[]>([]);
   private lastOrder = signal<Receipt | null>(null);
   private region = signal<string>('Calabarzon');
 
-  // ---- Read-only access ----
+  
   cart = this.lines.asReadonly();
   receipt = this.lastOrder.asReadonly();
   shippingRegion = this.region.asReadonly();
 
-  // ---- Computed signals ----
+ 
   subtotal = computed(() =>
     this.lines().reduce((sum, line) => sum + line.product.price * line.quantity, 0)
   );
@@ -40,7 +40,7 @@ export class CartService {
     Math.max(0, this.FREE_SHIPPING_FLOOR - this.subtotal())
   );
 
-  // ---- Cart functions ----
+ 
   add = (product: CartProduct): void => {
     this.lines.update(current => {
       const found = current.find(line => line.product.id === product.id);

@@ -9,14 +9,12 @@ import { Pokemon } from '../models/product';
   styleUrl: './carousel.css'
 })
 export class Carousel {
-  // Modern signal inputs
+
   slides = input.required<Pokemon[]>();
   heading = input<string>('');
 
-  // Modern signal output
   added = output<Pokemon>();
 
-  // The scrolling element
   private track = viewChild.required<ElementRef<HTMLDivElement>>('track');
 
   atStart = signal<boolean>(true);

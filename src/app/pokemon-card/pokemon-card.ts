@@ -9,11 +9,11 @@ import { Pokemon } from '../models/pokemon';
   styleUrl: './pokemon-card.css'
 })
 export class PokemonCard {
-  // Modern signal inputs
+  
   pokemon = input.required<Pokemon>();
   isOpen = input<boolean>(false);
 
-  // Modern signal output
+ 
   detailsToggled = output<number>();
 
   onToggle = (): void => {

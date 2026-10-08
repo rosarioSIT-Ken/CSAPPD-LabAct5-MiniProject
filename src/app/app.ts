@@ -15,7 +15,7 @@ export class App {
   wordmark = 'POKEDEX';
   notice = 'Free nationwide delivery on orders over P5,000';
 
-  // Computed signal from the service, live in the header
+
   cartCount = this.cartService.totalQuantity;
 
   menuOpen = signal<boolean>(false);

@@ -16,14 +16,14 @@ export class Products {
   private martService = inject(PokemartService);
   private cartService = inject(CartService);
 
-  // Local UI state
+  
   filter = signal<string>('All');
   selected = signal<string[]>([]);
   broken = signal<string[]>([]);
 
   filters = ['All', 'Pokemon', 'Item'];
 
-  // Computed: one flat catalogue built from both services
+ 
   catalogue = computed<CartProduct[]>(() => {
     const mons = this.pokemonService.all().map(m => ({
       id: 'mon-' + m.id,

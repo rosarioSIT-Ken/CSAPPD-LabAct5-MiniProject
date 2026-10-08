@@ -4,7 +4,7 @@ import { Pokemon } from '../models/product';
 @Injectable({ providedIn: 'root' })
 export class PokemonService {
 
-  // ---- Private signal: Kanto ----
+  
   private kantoList = signal<Pokemon[]>([
     { id: 1, name: 'Charizard', type: 'Fire / Flying', heldItem: 'Charcoal', price: 4200, region: 'Kanto', tag: 'Collector Pick',
       description: 'A proud Fire dragon whose flames melt boulders. It turns its fire on worthy opponents only.',
@@ -26,7 +26,7 @@ export class PokemonService {
       image: '/images/pokemon/alakazam.jpg' }
   ]);
 
-  // ---- Private signal: Johto ----
+ 
   private johtoList = signal<Pokemon[]>([
     { id: 7, name: 'Typhlosion', type: 'Fire', heldItem: 'Charcoal', price: 3600, region: 'Johto', tag: '',
       description: 'Hides behind a shimmering heat haze, then sets off blasts that burn everything to ash.',
@@ -48,7 +48,7 @@ export class PokemonService {
       image: '/images/pokemon/ampharos.jpg' }
   ]);
 
-  // ---- Private signal: Hoenn ----
+  
   private hoennList = signal<Pokemon[]>([
     { id: 13, name: 'Blaziken', type: 'Fire / Fighting', heldItem: 'Life Orb', price: 4100, region: 'Hoenn', tag: '',
       description: 'Flames burst from its wrists in a serious fight. It clears a thirty storey building in one leap.',
@@ -70,12 +70,12 @@ export class PokemonService {
       image: '/images/pokemon/milotic.jpg' }
   ]);
 
-  // ---- Read-only access ----
+
   kanto = this.kantoList.asReadonly();
   johto = this.johtoList.asReadonly();
   hoenn = this.hoennList.asReadonly();
 
-  // ---- Computed signals derived from the three lists ----
+  
   all = computed(() => [...this.kantoList(), ...this.johtoList(), ...this.hoennList()]);
 
   totalPokemon = computed(() => this.all().length);
